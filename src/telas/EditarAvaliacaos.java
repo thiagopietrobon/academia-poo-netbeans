@@ -245,16 +245,16 @@ public class EditarAvaliacaos extends javax.swing.JDialog {
             double custo = Double.parseDouble(tfdValor.getText().trim());
             int codProf = Integer.parseInt(tfdCodPro2.getText().trim());
 
-            classes.Profissional profAux = controle.buscarProfissional(codProf);
+            Profissional profAux = controle.buscarProfissional(codProf);
             if (profAux == null) {
                 JOptionPane.showMessageDialog(this, "Profissional não encontrado com o código informado!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            String nomeCategoriaSelecionada = cbCategoria.getSelectedItem().toString();
+            String catSelecionada = cbCategoria.getSelectedItem().toString();
             classes.Categoria catAux = null;
             for (classes.Categoria c : controle.getListaCategorias()) {
-                if (c.getNome().equalsIgnoreCase(nomeCategoriaSelecionada)) {
+                if (c.getNome().equalsIgnoreCase(catSelecionada)) {
                     catAux = c;
                     break;
                 }

@@ -254,6 +254,7 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
             controle.removerHistorico(historicoAux.getCod());
             
             JOptionPane.showMessageDialog(this, "Hhistórico excluido com sucesso.");
+            taSaida.setText("");
         }catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
         }
