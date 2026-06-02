@@ -231,9 +231,9 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
                 return;
             }
 
-            EditarAvaliacaos editarAvaliacao = new EditarAvaliacaos(this, true, controle, avaliacaoAux);
+            EditarAvaliacaos editarAvaliacao = new EditarAvaliacaos(this, true, controle, avaliacaoAux, historicoAux);
             editarAvaliacao.setVisible(true);
-            
+
             taSaida.setText(historicoAux.retornarTodasAvaliacoes());
 
         } catch (NumberFormatException e) {
@@ -272,6 +272,9 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
         if (tfdCpf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Insira o CPF do aluno para criar o histórico!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
+        } else if (tfdCpf.getText().trim().length() < 11 || tfdCpf.getText().trim().length() > 11) {
+            JOptionPane.showMessageDialog(this, "CPF invalido, deve ter 11 digitos!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
         Aluno alunoAux = controle.buscarAluno(tfdCpf.getText().trim());
@@ -281,7 +284,6 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
         }
 
         HistoricoAvaliacao histExistente = controle.buscarHistoricoCpf(tfdCpf.getText().trim());
-        
 
         try {
 
@@ -290,10 +292,10 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
             controle.addHistorico(novoHistorico);
 
             this.historicoAux = novoHistorico;
-            
+
             taSaida.setText(historicoAux.retornarHistoricoAvaliacaoCompleto());
 
-            JOptionPane.showMessageDialog(this, "Histórico do(a) aluno(a) " + alunoAux.getNome() + " criado com sucesso!",  "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Histórico do(a) aluno(a) " + alunoAux.getNome() + " criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Validação", JOptionPane.ERROR_MESSAGE);
