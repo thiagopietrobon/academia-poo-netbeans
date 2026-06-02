@@ -50,6 +50,7 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
         rdbAval = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taSaida = new javax.swing.JTextArea();
 
@@ -83,6 +84,10 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
         btnEditar.setText("EDITAR AVALIAÇÃO");
         btnEditar.addActionListener(this::btnEditarActionPerformed);
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/trash.png"))); // NOI18N
+        btnExcluir.setText("EXCLUIR HISTÓRICO");
+        btnExcluir.addActionListener(this::btnExcluirActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -103,12 +108,15 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addComponent(rdbAval, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(rdbHistCom))))
+                                    .addComponent(rdbHistCom)
+                                    .addGap(20, 20, 20))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(btnEditar)))
+                        .addGap(94, 94, 94)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -127,9 +135,11 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
                             .addComponent(rdbAval)
                             .addComponent(rdbHistCom)))
                     .addComponent(btnBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(btnExcluir)
+                .addGap(18, 18, 18)
                 .addComponent(btnEditar)
-                .addGap(41, 41, 41))
+                .addGap(26, 26, 26))
         );
 
         taSaida.setColumns(20);
@@ -223,7 +233,7 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
                 return;
             }
 
-            EditarAvaliacaos editarAvaliacao = new EditarAvaliacaos(this, true, controle, avaliacaoAux, historicoAux);
+            EditarAvaliacaos editarAvaliacao = new EditarAvaliacaos(this, true, controle, avaliacaoAux);
             editarAvaliacao.setVisible(true);
 
         } catch (NumberFormatException e) {
@@ -234,10 +244,15 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
