@@ -264,7 +264,7 @@ public class EditarAvaliacaos extends javax.swing.JDialog {
             }
 
             String catSelecionada = cbCategoria.getSelectedItem().toString();
-            classes.Categoria catAux = null;
+            Categoria catAux = null;
             for (classes.Categoria c : controle.getListaCategorias()) {
                 if (c.getNome().equalsIgnoreCase(catSelecionada)) {
                     catAux = c;

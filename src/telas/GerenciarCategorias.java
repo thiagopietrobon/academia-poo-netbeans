@@ -14,9 +14,10 @@ import javax.swing.JOptionPane;
  * @author Thiag
  */
 public class GerenciarCategorias extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GerenciarCategorias.class.getName());
     Controle controle;
+
     /**
      * Creates new form GerenciarCategorias
      */
@@ -24,13 +25,13 @@ public class GerenciarCategorias extends javax.swing.JDialog {
         super(parent, modal);
         this.controle = controle;
         initComponents();
-        
+
         setLocationRelativeTo(parent);
     }
-    
-    public void listarCats(){
+
+    public void listarCats() {
         taSaida.setText("");
-        for (Categoria c : controle.getListaCategorias()){
+        for (Categoria c : controle.getListaCategorias()) {
             taSaida.append(c.toString() + "\n");
         }
     }
@@ -141,41 +142,68 @@ public class GerenciarCategorias extends javax.swing.JDialog {
     private void btnEditarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCatActionPerformed
         String registro = JOptionPane.showInputDialog("Número de registro:");
 
-        if (registro == null) return;
+        if (registro == null) {
+            return;
+        }
+
+        try {
+            int cod = Integer.parseInt(registro);
+
+            Categoria aux = controle.buscarCategoria(cod);
+
+            if (aux == null) {
+                JOptionPane.showMessageDialog(this, "Categoria não encontrada!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            EditarCategorias editarCat = new EditarCategorias(this, true, aux);
+            editarCat.setVisible(true);
+
+            listarCats();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "O código deve conter apenas números!", "Erro de Digitação", JOptionPane.WARNING_MESSAGE);
+
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnEditarCatActionPerformed
 
     private void btnExcluirCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirCatActionPerformed
         String input = (JOptionPane.showInputDialog("Código:"));
 
-        if (input == null) return;
+        if (input == null) {
+            return;
+        }
 
-        try{
+        try {
             int cod = Integer.parseInt(input.trim());
 
             Categoria aux = controle.buscarCategoria(cod);
 
-            if (aux == null){
-                throw new IllegalArgumentException("Categoria não encontrada!");
+            if (aux == null) {
+                JOptionPane.showMessageDialog(this, "Categoria não encontrada!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
             }
 
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja excluir o convênio: " + aux.getNome()+ "?",
-                "Confirmar Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja excluir a categoria: " + aux.getNome() + "?",
+                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-            if (resposta != JOptionPane.YES_OPTION){
+            if (resposta != JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(this, "Operação cancelada.");
                 return;
             }
 
             controle.removerCategoria(cod);
 
-            JOptionPane.showMessageDialog(this, "Convênio excluido com sucesso");
+            JOptionPane.showMessageDialog(this, "Categoria excluido com sucesso");
             listarCats();
 
-        } catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "O código deve conter apenas números!", "Erro de Digitação", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "O código deve conter apenas números!", "Erro de Digitação", JOptionPane.WARNING_MESSAGE);
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExcluirCatActionPerformed
