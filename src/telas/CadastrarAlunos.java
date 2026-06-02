@@ -28,9 +28,8 @@ public class CadastrarAlunos extends javax.swing.JDialog {
         initComponents();
 
         cbConvenios.removeAllItems();
-
-        for (Convenio c : controle.getListaConvenios()) {
-            cbConvenios.addItem(c);
+        for (classes.Convenio c : controle.getListaConvenios()) {
+            cbConvenios.addItem(c.getNomeConvenio());
         }
 
         setLocationRelativeTo(parent);
@@ -192,11 +191,24 @@ public class CadastrarAlunos extends javax.swing.JDialog {
             return;
         }
 
+        if (cbConvenios.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um convênio válido!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nomeConvSelecionado = cbConvenios.getSelectedItem().toString();
+        Convenio convenioAux = null;
+        for (Convenio c : controle.getListaConvenios()) {
+            if (c.getNomeConvenio().equalsIgnoreCase(nomeConvSelecionado)) {
+                convenioAux = c;
+                break;
+            }
+        }
+
         try {
-            Convenio cSelecionado = (Convenio) cbConvenios.getSelectedItem();
             String objetivo = cbObjetivo.getSelectedItem().toString();
 
-            Aluno novoAluno = new Aluno(tfdCpf.getText().trim(), tfdNome.getText().trim(), tfdData.getText().trim(), objetivo, cSelecionado);
+            Aluno novoAluno = new Aluno(tfdCpf.getText().trim(), tfdNome.getText().trim(), tfdData.getText().trim(), objetivo, convenioAux);
 
             controle.addAluno(novoAluno);
 
@@ -216,7 +228,7 @@ public class CadastrarAlunos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<Convenio> cbConvenios;
+    private javax.swing.JComboBox<String> cbConvenios;
     private javax.swing.JComboBox<String> cbObjetivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

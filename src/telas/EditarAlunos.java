@@ -16,13 +16,13 @@ import javax.swing.JOptionPane;
  * @author Thiag
  */
 public class EditarAlunos extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditarAlunos.class.getName());
     Controle controle;
     Aluno aluno;
-    
+
     ArrayList<String> listaTemp = new ArrayList();
-    
+
     /**
      * Creates new form EditarAluno
      */
@@ -31,21 +31,24 @@ public class EditarAlunos extends javax.swing.JDialog {
         this.controle = controle;
         this.aluno = aluno;
         initComponents();
-        
+
         setLocationRelativeTo(parent);
-        
-        for (Convenio c : controle.getListaConvenios()){
-            cbConvenios.addItem(c);
+
+        cbConvenios.removeAllItems();
+        for (Convenio c : controle.getListaConvenios()) {
+            cbConvenios.addItem(c.getNomeConvenio());
         }
-        
+
         tfdCpf.setText(aluno.getCpf());
         tfdNome.setText(aluno.getNome());
         tfdData.setText(aluno.getDataNascimento());
-        
-        cbConvenios.setSelectedItem(aluno.getConvenio().getNomeConvenio());
+
         cbObjetivo.setSelectedItem(aluno.getObjetivo());
+
+        if (aluno.getConvenio() != null) {
+            cbConvenios.setSelectedItem(aluno.getConvenio().getNomeConvenio());
+        }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,36 +191,44 @@ public class EditarAlunos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "CPF não pode ficar vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         if (tfdNome.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Nome não pode ficar vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        return;
-         }
-        
-        if (tfdData.getText().trim().length() < 8){
+            JOptionPane.showMessageDialog(this, "Nome não pode ficar vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (tfdData.getText().trim().length() < 8) {
             JOptionPane.showMessageDialog(this, "Data deve ser no formado dia, mês e ano!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-    
+
         if (cbConvenios.getSelectedItem() == null || cbObjetivo.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Selecione um Convênio e um Objetivo válidos!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
+
+        String nomeConvSelecionado = cbConvenios.getSelectedItem().toString();
+        Convenio convenioAux = null;
+        for (Convenio c : controle.getListaConvenios()) {
+            if (c.getNomeConvenio().equalsIgnoreCase(nomeConvSelecionado)) {
+                convenioAux = c;
+                break;
+            }
+        }
+
         try {
-            Convenio convCombo = (Convenio) cbConvenios.getSelectedItem();
-            Convenio convenioSelecionado = controle.buscarConvenio(convCombo.getNumRegistro());
 
             aluno.setNome(tfdNome.getText().trim());
-            aluno.setCpf(tfdCpf.getText().trim()); 
+            aluno.setCpf(tfdCpf.getText().trim());
             aluno.setDataNascimento(tfdData.getText().trim());
-            aluno.setConvenio(convenioSelecionado);
+            aluno.setConvenio(convenioAux);
             aluno.setObjetivo(cbObjetivo.getSelectedItem().toString());
 
             JOptionPane.showMessageDialog(this, "Cadastro do aluno atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-            
-        } catch (IllegalArgumentException e){
+
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -230,7 +241,7 @@ public class EditarAlunos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<Convenio> cbConvenios;
+    private javax.swing.JComboBox<String> cbConvenios;
     private javax.swing.JComboBox<String> cbObjetivo;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
