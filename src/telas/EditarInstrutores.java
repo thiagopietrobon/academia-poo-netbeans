@@ -15,12 +15,13 @@ import javax.swing.JOptionPane;
  * @author Thiag
  */
 public class EditarInstrutores extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditarInstrutores.class.getName());
     Controle controle;
     Instrutor instrutor;
-    
+
     ArrayList<String> listaTemp = new ArrayList();
+
     /**
      * Creates new form EditarInstrutor
      */
@@ -29,18 +30,18 @@ public class EditarInstrutores extends javax.swing.JDialog {
         this.controle = controle;
         this.instrutor = instrutor;
         initComponents();
-        
+
         tfdCod.setText(String.valueOf(instrutor.getCod()));
         tfdNome.setText(instrutor.getNome());
         tfdCref.setText(String.valueOf(instrutor.getCref()));
         tfdEsp.setText(instrutor.getEspecialidade());
-        
+
         taSaida.setText("");
-        for (String t : instrutor.getTelefones()){
+        for (String t : instrutor.getTelefones()) {
             listaTemp.add(t);
             taSaida.append(t + "\n");
         }
-                
+
         setLocationRelativeTo(parent);
     }
 
@@ -193,25 +194,24 @@ public class EditarInstrutores extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
+
         String tel = tfdTelefone.getText().trim();
 
         if (tel.isEmpty()) {
-            throw new IllegalArgumentException("Digite um número de telefone antes de adicionar");
+            JOptionPane.showMessageDialog(this, "Digite um número de telefone antes de adicionar!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
         listaTemp.add(tel);
 
-        taSaida.append(tel + "\n");
-
         taSaida.setText("");
-        for (String t : listaTemp){
+        for (String t : listaTemp) {
             taSaida.append(t + "\n");
         }
-        
-        taSaida.setText("");
-        taSaida.requestFocus();
-        
+
+        tfdTelefone.setText("");
+        tfdTelefone.requestFocus();
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -220,8 +220,8 @@ public class EditarInstrutores extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (tfdNome.getText().trim().isEmpty() || tfdCref.getText().trim().isEmpty() || tfdEsp.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Todos os campos de texto são obrigatórios!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        return;
+            JOptionPane.showMessageDialog(this, "Todos os campos de texto são obrigatórios!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
         if (listaTemp.isEmpty()) {
@@ -243,10 +243,10 @@ public class EditarInstrutores extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Cadastro do instrutor atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
 
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Código deve conter apenas números inteiros!", "Erro de Digitação", JOptionPane.ERROR_MESSAGE);
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro do Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

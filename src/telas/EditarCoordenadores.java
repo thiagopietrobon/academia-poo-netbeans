@@ -15,12 +15,13 @@ import javax.swing.JOptionPane;
  * @author Thiag
  */
 public class EditarCoordenadores extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditarCoordenadores.class.getName());
     Controle controle;
     Coordenador coordenador;
-    
+
     ArrayList<String> listaTemp = new ArrayList();
+
     /**
      * Creates new form EditarCoordenador
      */
@@ -29,7 +30,17 @@ public class EditarCoordenadores extends javax.swing.JDialog {
         this.controle = controle;
         this.coordenador = coordenador;
         initComponents();
-        
+
+        tfdCod.setText(String.valueOf(coordenador.getCod()));
+        tfdNome.setText(coordenador.getNome());
+        tfdSetor.setText(coordenador.getSetor());
+
+        taSaida.setText("");
+        for (String t : coordenador.getTelefones()) {
+            listaTemp.add(t);
+            taSaida.append(t + "\n");
+        }
+
         setLocationRelativeTo(parent);
     }
 
@@ -191,7 +202,7 @@ public class EditarCoordenadores extends javax.swing.JDialog {
             tfdTelefone.setText("");
             tfdTelefone.requestFocus();
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -201,40 +212,42 @@ public class EditarCoordenadores extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (tfdCod.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Código não pode ser vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (tfdNome.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nome não pode ser vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (tfdSetor.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Setor não pode ser vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (listaTemp.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Adicione pelo menos um telefone!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         try {
-            if (tfdCod.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Código não pode ser vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            if (tfdNome.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Nome não pode ser vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            if (tfdSetor.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Setor não pode ser vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            if (listaTemp.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Adicione pelo menos um telefone!", "Aviso", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
 
             int cod = Integer.parseInt(tfdCod.getText().trim());
 
-            Coordenador novoCoordenador = new Coordenador(cod, tfdNome.getText().trim(), listaTemp, tfdSetor.getText().trim());
-
-            controle.addProfissional(novoCoordenador);
+            coordenador.setCod(cod);
+            coordenador.setNome(tfdNome.getText().trim());
+            coordenador.setSetor(tfdSetor.getText().trim());
+            coordenador.setTelefones(new java.util.ArrayList<>(listaTemp));
 
             JOptionPane.showMessageDialog(this, "Coordenador cadastrado com sucesso!");
             this.dispose();
 
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Código só pode coter números!", "Aviso", JOptionPane.WARNING_MESSAGE);
 
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
