@@ -4,6 +4,7 @@
  */
 package telas;
 
+import classes.Categoria;
 import classes.Controle;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -13,9 +14,10 @@ import javax.swing.JOptionPane;
  * @author Thiag
  */
 public class CadastrarCategorias extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastrarCategorias.class.getName());
     Controle controle;
+
     /**
      * Creates new form CadastrarCategoria
      */
@@ -23,7 +25,7 @@ public class CadastrarCategorias extends javax.swing.JDialog {
         super(parent, modal);
         this.controle = controle;
         initComponents();
-        
+
         setLocationRelativeTo(parent);
     }
 
@@ -127,15 +129,32 @@ public class CadastrarCategorias extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(tfdNome.getText().trim().isEmpty()){
+        if (tfdNome.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nome da Categoria é obrigatório!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (tfdCod.getText().trim().isEmpty()){
+        if (tfdCod.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Codígo da Categoria é obrigatório!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
+        try {
+            int cod = Integer.parseInt(tfdCod.getText().trim());
+
+            Categoria catAux = new Categoria(cod, tfdNome.getText().trim());
+
+            controle.addCategoria(catAux);
+
+            JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Codigo só pode conter números!", "Erro de digitação", JOptionPane.WARNING_MESSAGE);
+            
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
 
