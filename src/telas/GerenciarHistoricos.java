@@ -211,7 +211,7 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
     }//GEN-LAST:event_rdbHistComActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (tfdCpf.getText().trim().isEmpty()) {
+        if (historicoAux == null) {
             JOptionPane.showMessageDialog(this, "É preciso fazer a busca do histórico primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -245,7 +245,7 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if (tfdCpf.getText().trim().isEmpty()) {
+        if (historicoAux == null) {
             JOptionPane.showMessageDialog(this, "É preciso fazer a busca do histórico primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
