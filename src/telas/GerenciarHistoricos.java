@@ -51,6 +51,7 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        btnCriarHist = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taSaida = new javax.swing.JTextArea();
 
@@ -88,6 +89,10 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
         btnExcluir.setText("EXCLUIR HISTÓRICO");
         btnExcluir.addActionListener(this::btnExcluirActionPerformed);
 
+        btnCriarHist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add.png"))); // NOI18N
+        btnCriarHist.setText("NOVO HISTÓRICO");
+        btnCriarHist.addActionListener(this::btnCriarHistActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -112,7 +117,8 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
                         .addGap(85, 85, 85)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCriarHist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -120,11 +126,9 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfdCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(9, 9, 9))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfdCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -132,11 +136,13 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbAval)
                     .addComponent(rdbHistCom))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(btnCriarHist, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(22, 22, 22))
         );
 
         taSaida.setColumns(20);
@@ -201,7 +207,7 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void rdbHistComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHistComActionPerformed
-        
+
     }//GEN-LAST:event_rdbHistComActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -227,6 +233,8 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
 
             EditarAvaliacaos editarAvaliacao = new EditarAvaliacaos(this, true, controle, avaliacaoAux);
             editarAvaliacao.setVisible(true);
+            
+            taSaida.setText(historicoAux.retornarTodasAvaliacoes());
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Codígo so pode conter números!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -237,32 +245,65 @@ public class GerenciarHistoricos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-         if (tfdCpf.getText().trim().isEmpty()) {
+        if (tfdCpf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "É preciso fazer a busca do histórico primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        int resposta = JOptionPane.showConfirmDialog(this, "Excluir histórico do(a) aluno(a) " + historicoAux.getAluno().getNome() + "?", 
+
+        int resposta = JOptionPane.showConfirmDialog(this, "Excluir histórico do(a) aluno(a) " + historicoAux.getAluno().getNome() + "?",
                 "Confirmar Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        
-        if (resposta != JOptionPane.YES_OPTION){
+
+        if (resposta != JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(this, "Operação cancelada.");
             return;
         }
-        
-        try{
+
+        try {
             controle.removerHistorico(historicoAux.getCod());
-            
+
             JOptionPane.showMessageDialog(this, "Hhistórico excluido com sucesso.");
             taSaida.setText("");
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void btnCriarHistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarHistActionPerformed
+        if (tfdCpf.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira o CPF do aluno para criar o histórico!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Aluno alunoAux = controle.buscarAluno(tfdCpf.getText().trim());
+        if (alunoAux == null) {
+            JOptionPane.showMessageDialog(this, "Aluno não encontrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        HistoricoAvaliacao histExistente = controle.buscarHistoricoCpf(tfdCpf.getText().trim());
+        
+
+        try {
+
+            HistoricoAvaliacao novoHistorico = new HistoricoAvaliacao(controle.gerarCod(), alunoAux);
+
+            controle.addHistorico(novoHistorico);
+
+            this.historicoAux = novoHistorico;
+            
+            taSaida.setText(historicoAux.retornarHistoricoAvaliacaoCompleto());
+
+            JOptionPane.showMessageDialog(this, "Histórico do(a) aluno(a) " + alunoAux.getNome() + " criado com sucesso!",  "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCriarHistActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCriarHist;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.ButtonGroup buttonGroup1;

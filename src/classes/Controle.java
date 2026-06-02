@@ -190,14 +190,8 @@ public class Controle {
     public void addHistorico(HistoricoAvaliacao h) {
         HistoricoAvaliacao auxCpf = buscarHistoricoCpf(h.getAluno().getCpf());
         if (auxCpf != null) {
-            throw new IllegalArgumentException("O(a) Aluno(a)" + h.getAluno().getNome() + "já tem um histórico cadastrado!");
+            throw new IllegalArgumentException("O(a) Aluno(a) " + h.getAluno().getNome() + " já tem um histórico cadastrado!");
         }
-
-        HistoricoAvaliacao auxCod = buscarHistoricoCod(h.getCod());
-        if (auxCod != null) {
-            throw new IllegalArgumentException("Já exite um histórico cadastrado com esse codígo!");
-        }
-
         listaHistoricos.add(h);
     }
 
