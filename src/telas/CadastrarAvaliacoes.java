@@ -4,7 +4,11 @@
  */
 package telas;
 
+import classes.Aluno;
+import classes.Categoria;
 import classes.Controle;
+import classes.HistoricoAvaliacao;
+import classes.Profissional;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -24,10 +28,19 @@ public class CadastrarAvaliacoes extends javax.swing.JDialog {
         super(parent, modal);
         this.controle = controle;
         initComponents();
-        
+
         tfdData.setText(java.time.LocalDate.now().toString());
-        
+
+        addCategorias();
+
         setLocationRelativeTo(parent);
+    }
+
+    private void addCategorias() {
+        cbCategoria.removeAllItems();
+        for (Categoria c : controle.getListaCategorias()) {
+            cbCategoria.addItem(c.getNome());
+        }
     }
 
     /**
@@ -67,6 +80,7 @@ public class CadastrarAvaliacoes extends javax.swing.JDialog {
         jLabel1.setText("NOME AVALIAÇÃO:");
 
         cbNomeAval.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Antropometria", "Anamnese", "Bioimpedância", "Teste de força" }));
+        cbNomeAval.addActionListener(this::cbNomeAvalActionPerformed);
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("DATA:");
@@ -99,9 +113,6 @@ public class CadastrarAvaliacoes extends javax.swing.JDialog {
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("CPF ALUNO:");
-
-        tfdCpf.setEditable(false);
-        tfdCpf.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -201,20 +212,85 @@ public class CadastrarAvaliacoes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
+        if (tfdCpf.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o CPF do Aluno!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         if (tfdValor.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe um valor!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Informe um valor!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (tfdCodPro.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Informe o codígo do profissional!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Informe o código do profissional!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (cbCategoria.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Nenhuma categoria selecionada!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            double custo = Double.parseDouble(tfdValor.getText().trim());
+            int codProf = Integer.parseInt(tfdCodPro.getText().trim());
+
+            
+            Aluno alunoAux = controle.buscarAluno(tfdCpf.getText().trim());
+            if (alunoAux == null) {
+                JOptionPane.showMessageDialog(this, "Aluno não encontrado!.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+
+            Profissional profaux = controle.buscarProfissional(codProf);
+            if (profaux == null) {
+                JOptionPane.showMessageDialog(this, "Profissional não encontrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            
+            String nomeCatSelecionada = cbCategoria.getSelectedItem().toString();
+            Categoria catAux = null;
+            for (Categoria c : controle.getListaCategorias()) {
+                if (c.getNome().equalsIgnoreCase(nomeCatSelecionada)) {
+                    catAux = c;
+                    break;
+                }
+            }
+
+            HistoricoAvaliacao historicoAux = controle.buscarHistoricoCpf(tfdCpf.getText().trim());
+
+            if (historicoAux == null) {
+
+                historicoAux = new HistoricoAvaliacao(controle.gerarCod(), alunoAux);
+                controle.addHistorico(historicoAux);
+            }
+
+            String nomeAvaliacao = cbNomeAval.getSelectedItem().toString();
+            String relato = taEntrada.getText().trim();
+
+            historicoAux.inserirAvaliacao(nomeAvaliacao, custo, relato, catAux, profaux);
+
+            JOptionPane.showMessageDialog(this, "Avaliação gravada com sucesso para " + alunoAux.getNome() + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Os campos de Valor e Código do Profissional devem conter apenas números!", "Erro de Formato", JOptionPane.WARNING_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void cbNomeAvalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNomeAvalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNomeAvalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
