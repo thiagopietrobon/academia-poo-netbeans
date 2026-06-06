@@ -17,6 +17,7 @@ public class Controle {
     private ArrayList<Profissional> listaProfissionais = new ArrayList();
     private ArrayList<Categoria> listaCategorias = new ArrayList<>();
     private ArrayList<HistoricoAvaliacao> listaHistoricos = new ArrayList<>();
+    private ArrayList<Agendamento>ListaAgendamento = new ArrayList<>();
 
     public Controle() {
         this.listaAlunos = new ArrayList();
@@ -24,6 +25,7 @@ public class Controle {
         this.listaProfissionais = new ArrayList();
         this.listaCategorias = new ArrayList();
         this.listaHistoricos = new ArrayList();
+        this.ListaAgendamento = new ArrayList<>();
 
         //Inserindo dados para testes de execução!
         Convenio conv1 = new Convenio(2, "Unimed Esportes");
@@ -99,6 +101,11 @@ public class Controle {
         return listaHistoricos;
     }
 
+    public ArrayList<Agendamento> getListaAgendamento() {
+        return ListaAgendamento;
+    }
+    
+
     //Buscas ---------------------------------------
     public Profissional buscarProfissional(int cod) {
         for (Profissional p : listaProfissionais) {
@@ -153,6 +160,15 @@ public class Controle {
         }
         return null;
     }
+    
+    public Agendamento buscarAgendamento(int cod){
+        for(Agendamento a: ListaAgendamento){
+            if(a.getCodigo() == cod){
+                return a;
+            }
+        }
+        return null;
+    }
 
     //Adições -----------------------------------
     public void addProfissional(Profissional p) {
@@ -193,6 +209,14 @@ public class Controle {
             throw new IllegalArgumentException("O(a) Aluno(a) " + h.getAluno().getNome() + " já tem um histórico cadastrado!");
         }
         listaHistoricos.add(h);
+    }
+    
+    public void addAgendamento(Agendamento a){
+        Agendamento aux = buscarAgendamento(a.getCodigo());
+        if(aux != null){
+            throw new IllegalArgumentException("Código já cadastrado");
+        }
+        ListaAgendamento.add(aux);
     }
 
     //Remoções --------------------------------------
@@ -240,6 +264,14 @@ public class Controle {
             throw new IllegalArgumentException("Histórico não encontrado.");
         }
         listaHistoricos.remove(aux);
+    }
+    
+    public void removerAgendamento(int cod){
+        Agendamento aux = buscarAgendamento(cod);
+        if(aux == null){
+            throw new IllegalArgumentException("Agendamento não encontrado");
+        }
+        ListaAgendamento.remove(aux);
     }
 
     //Geração de codigo para Histórico ------------------
