@@ -11,4 +11,5 @@ package classes;
 public class Agendamento {
     
     String agenda;
+    String fizAlgumaCoisa;
 }
