@@ -10,4 +10,5 @@ package classes;
  */
 public class Agendamento {
     
+    String agenda;
 }
