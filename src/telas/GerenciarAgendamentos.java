@@ -120,7 +120,8 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoAgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAgenActionPerformed
-        
+        CadastrarAgendamentos cadastrarAgendamento = new CadastrarAgendamentos(this, true, controle);
+        cadastrarAgendamento.setVisible(true);
     }//GEN-LAST:event_btnNovoAgenActionPerformed
 
     private void btnListarAgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarAgenActionPerformed
