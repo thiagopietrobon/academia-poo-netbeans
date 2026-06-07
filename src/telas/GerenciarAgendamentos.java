@@ -34,23 +34,115 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnNovoAgen = new javax.swing.JButton();
+        btnListarAgen = new javax.swing.JButton();
+        btnEditarAgend = new javax.swing.JButton();
+        btnExcluiragen = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taSaida = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setName("GerenciarAluno"); // NOI18N
+
+        btnNovoAgen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add.png"))); // NOI18N
+        btnNovoAgen.setText("NOVO AGENDAMENTO");
+        btnNovoAgen.addActionListener(this::btnNovoAgenActionPerformed);
+
+        btnListarAgen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/list.png"))); // NOI18N
+        btnListarAgen.setText("LISTAR AGENDAMENTOS");
+        btnListarAgen.addActionListener(this::btnListarAgenActionPerformed);
+
+        btnEditarAgend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil.png"))); // NOI18N
+        btnEditarAgend.setText("EDITAR AGENDAMENTO");
+        btnEditarAgend.addActionListener(this::btnEditarAgendActionPerformed);
+
+        btnExcluiragen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/trash.png"))); // NOI18N
+        btnExcluiragen.setText("EXCLUIR AGENDAMENTO");
+        btnExcluiragen.addActionListener(this::btnExcluiragenActionPerformed);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnNovoAgen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnListarAgen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditarAgend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluiragen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(63, 63, 63))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(btnNovoAgen)
+                .addGap(18, 18, 18)
+                .addComponent(btnListarAgen)
+                .addGap(18, 18, 18)
+                .addComponent(btnEditarAgend)
+                .addGap(18, 18, 18)
+                .addComponent(btnExcluiragen)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        taSaida.setColumns(20);
+        taSaida.setRows(5);
+        jScrollPane1.setViewportView(taSaida);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNovoAgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAgenActionPerformed
+        
+    }//GEN-LAST:event_btnNovoAgenActionPerformed
+
+    private void btnListarAgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarAgenActionPerformed
+        
+    }//GEN-LAST:event_btnListarAgenActionPerformed
+
+    private void btnEditarAgendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAgendActionPerformed
+        
+    }//GEN-LAST:event_btnEditarAgendActionPerformed
+
+    private void btnExcluiragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluiragenActionPerformed
+        
+    }//GEN-LAST:event_btnExcluiragenActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditarAgend;
+    private javax.swing.JButton btnExcluiragen;
+    private javax.swing.JButton btnListarAgen;
+    private javax.swing.JButton btnNovoAgen;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea taSaida;
     // End of variables declaration//GEN-END:variables
 }
