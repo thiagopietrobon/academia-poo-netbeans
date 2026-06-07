@@ -4,7 +4,9 @@
  */
 package telas;
 
+import classes.Agendamento;
 import classes.Controle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -129,7 +131,26 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnListarAgenActionPerformed
 
     private void btnEditarAgendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAgendActionPerformed
+        String codigo = JOptionPane.showInputDialog("Código do agendamento:");
         
+        if (codigo == null) return;
+        
+        try{
+            int cod = Integer.parseInt(codigo);
+            
+            Agendamento aux = controle.buscarAgendamento(cod);
+            
+            if (aux == null) {
+                JOptionPane.showMessageDialog(this, "Agendamento não encontrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            EditarAgendamentos editarAgendamento = new EditarAgendamentos(this, true, aux);
+            editarAgendamento.setVisible(true);
+            
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Código só pode conter números!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditarAgendActionPerformed
 
     private void btnExcluiragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluiragenActionPerformed
