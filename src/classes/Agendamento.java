@@ -121,7 +121,7 @@ public class Agendamento {
 
     @Override
     public String toString() {
-        return "Agendamento{" + "codigo=" + codigo + ", data=" + data + ", horaInicio=" + horaInicio + ", duracao=" + duracao + ", valor=" + valor + ", objetivo=" + objetivo + ", aluno=" + aluno + ", intrutor=" + intrutor + '}';
+        return "Agendamento: " + "codigo=" + codigo + ", data=" + data + ", horaInicio=" + horaInicio + ", duracao=" + duracao + ", valor=" + valor + ", objetivo=" + objetivo + ", aluno=" + aluno + ", intrutor=" + intrutor;
     }
     
     
