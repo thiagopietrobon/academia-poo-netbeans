@@ -56,8 +56,6 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taEntrada = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
-        tfCodAgendamento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,7 +77,9 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("DURAÇÃO  EM HORAS:");
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        tfdHorario.setText("00:00");
+        tfdHorario.addActionListener(this::tfdHorarioActionPerformed);
+
         jLabel6.setText("VALOR: R$");
 
         btnSalvar.setBackground(new java.awt.Color(39, 200, 108));
@@ -97,8 +97,6 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
         taEntrada.setRows(5);
         jScrollPane1.setViewportView(taEntrada);
 
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("COD AGENDAMENTO:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,20 +124,17 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfCodAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel7))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdHorario)))
+                                .addComponent(tfdHorario))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -174,14 +169,11 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(tfCodAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancelar)
-                            .addComponent(btnSalvar))))
+                            .addComponent(btnSalvar)
+                            .addComponent(btnCancelar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -220,14 +212,14 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
                 throw new IllegalArgumentException("Profissional não encontrado");
             }
             
-            int cod = Integer.parseInt(tfCodAgendamento.getText());
+            int cod = controle.gerarCod();
             LocalDate data = LocalDate.parse(tfdData.getText());
             LocalTime horario = LocalTime.parse(tfdHorario.getText());
             double duracao = Double.parseDouble(tfdDuracao.getText());
             double valor = Double.parseDouble(tfdValor.getText());
             String objetivo = taEntrada.getText().trim();
             
-            Agendamento agendamento = new Agendamento(cod, data, horario, duracao, valor, objetivo, aluno, (Instrutor)profisional);
+            Agendamento agendamento = new Agendamento(cod, data, horario, duracao, valor, objetivo, aluno, profisional);
             controle.addAgendamento(agendamento);
             
             JOptionPane.showMessageDialog(this,"Agendamento cadastrado com sucesso!");
@@ -240,6 +232,10 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void tfdHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdHorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdHorarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -251,11 +247,9 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea taEntrada;
-    private javax.swing.JTextField tfCodAgendamento;
     private javax.swing.JTextField tfdCodProf;
     private javax.swing.JTextField tfdCpf;
     private javax.swing.JTextField tfdData;

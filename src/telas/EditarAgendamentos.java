@@ -5,6 +5,7 @@
 package telas;
 
 import classes.Agendamento;
+import classes.Instrutor;
 import javax.swing.JDialog;
 
 /**
@@ -24,7 +25,7 @@ public class EditarAgendamentos extends javax.swing.JDialog {
         initComponents();
         
         tfdCpf.setText(agendamento.getAluno().getCpf());
-        tfdCodProf.setText(String.valueOf(agendamento.getIntrutor().getCod()));
+        tfdCodProf.setText(String.valueOf(agendamento.getProfissional().getCod()));
         tfdData.setText(agendamento.getData().toString());
         tfdDuracao.setText(String.valueOf(agendamento.getDuracao()));
         tfdHorario.setText(agendamento.getHoraInicio().toString());
