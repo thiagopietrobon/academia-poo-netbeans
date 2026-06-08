@@ -6,6 +6,7 @@ package telas;
 
 import classes.Agendamento;
 import classes.Controle;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +26,15 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         initComponents();
         
         setLocationRelativeTo(parent);
+    }
+    
+    public void listarGerenciamento(){
+        taSaida.setText("");
+        ArrayList<Agendamento> listaAux = controle.getListaAgendamento();
+        taSaida.setText("");
+        for (Agendamento a : listaAux){
+            taSaida.append(a.toString() + "\n");
+        }
     }
 
     /**
@@ -127,7 +137,7 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoAgenActionPerformed
 
     private void btnListarAgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarAgenActionPerformed
-        
+        listarGerenciamento();
     }//GEN-LAST:event_btnListarAgenActionPerformed
 
     private void btnEditarAgendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAgendActionPerformed
