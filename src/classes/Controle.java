@@ -216,6 +216,21 @@ public class Controle {
         if(aux != null){
             throw new IllegalArgumentException("Código já cadastrado");
         }
+        for(Agendamento ag : ListaAgendamento){
+            if(ag.getData().equals(a.getData()) && ag.getHoraInicio().equals(a.getHoraInicio())){
+                if(ag.getAluno().getCpf()
+                    .equals(a.getAluno().getCpf())){
+
+                throw new IllegalArgumentException("Aluno já possui agendamento neste horário");
+                }
+            }
+
+            if(ag.getProfissional().getCod()== a.getProfissional().getCod()){
+
+                throw new IllegalArgumentException("Instrutor já possui agendamento neste horário");
+            }
+            
+        }
         ListaAgendamento.add(a);
     }
 
