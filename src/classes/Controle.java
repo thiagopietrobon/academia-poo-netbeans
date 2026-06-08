@@ -77,7 +77,7 @@ public class Controle {
 
         this.listaHistoricos.add(histThiago);
 
-        Agendamento agen1 = new Agendamento(1, java.time.LocalDate.of(2026, 6, 15), java.time.LocalTime.of(8, 0), 1, 95.14, "Avaliação de Entrada",aluno1 , inst1);
+        Agendamento agen1 = new Agendamento(1, java.time.LocalDate.of(2026, 6, 15), java.time.LocalTime.of(8, 0), 1, 95.14, "Avaliação de Entrada", aluno1, inst1);
 
         Agendamento agen2 = new Agendamento(2, java.time.LocalDate.of(2026, 6, 12), java.time.LocalTime.of(8, 0), 1.5, 102.41, "Rotina Semestral", aluno2, coord1);
 
@@ -321,7 +321,7 @@ public class Controle {
                 relatorio += "Código: " + ag.getCodigo() + "\n"
                         + "Data: " + ag.getData() + "\n"
                         + "Horário: " + ag.getHoraInicio() + "\n"
-                        + "Atividade: " + ag.getObjetivo()+ "\n"
+                        + "Atividade: " + ag.getObjetivo() + "\n"
                         + "Profissional: " + ag.getProfissional().getNome() + "\n"
                         + "-------------------------------------------\n";
                 cont++;
@@ -348,7 +348,7 @@ public class Controle {
                 relatorio = relatorio + "Código: " + ag.getCodigo() + "\n"
                         + "Data: " + ag.getData() + "\n"
                         + "Horário: " + ag.getHoraInicio() + "\n"
-                        + "Descrição: " + ag.getObjetivo()+ "\n"
+                        + "Descrição: " + ag.getObjetivo() + "\n"
                         + "Aluno: " + ag.getAluno().getNome() + "\n"
                         + "-------------------------------------------\n";
                 cont++;
@@ -358,6 +358,78 @@ public class Controle {
         if (cont == 0) {
             relatorio = relatorio + "Nenhum agendamento marcado para este profissional.";
         }
+        return relatorio;
+    }
+
+    public String relatorioAgendamentosPorAluno(String cpf) {
+        Aluno aluno = buscarAluno(cpf);
+        if (aluno == null) {
+            throw new IllegalArgumentException("Aluno com o CPF informado não foi encontrado!");
+        }
+
+        String relatorio = "=== AGENDAMENTOS DO ALUNO: " + aluno.getNome() + " ===\n\n";
+        int totalAgendamentos = 0;
+        double totalGasto = 0.0;
+
+        for (Agendamento ag : ListaAgendamento) {
+            if (ag.getAluno().getCpf().equals(cpf)) {
+                relatorio = relatorio + "Código: " + ag.getCodigo() + "\n"
+                        + "Data: " + ag.getData() + "\n"
+                        + "Horário: " + ag.getHoraInicio() + "\n"
+                        + "Duração: " + ag.getDuracao()+ "h\n"
+                        + "Valor: R$ " + ag.getValor() + "\n"
+                        + "Atividade: " + ag.getObjetivo()+ "\n"
+                        + "Profissional: " + ag.getProfissional().getNome() + "\n"
+                        + "-------------------------------------------\n";
+
+                totalAgendamentos = totalAgendamentos + 1;
+                totalGasto = totalGasto + ag.getValor();
+            }
+        }
+
+        relatorio = relatorio + "\n===========================================\n"
+                + " RESUMO FINANCEIRO DO ALUNO\n"
+                + "===========================================\n"
+                + "Quantidade Total de Agendamentos: " + totalAgendamentos + "\n"
+                + "Valor Total Gasto: R$ " + String.format("%.2f", totalGasto) + "\n"
+                + "===========================================\n";
+
+        return relatorio;
+    }
+
+    public String relatorioAgendamentosPorProfissional(int codProf) {
+        Profissional prof = buscarProfissional(codProf);
+        if (prof == null) {
+            throw new IllegalArgumentException("Profissional com o código informado não foi encontrado!");
+        }
+
+        String relatorio = "=== AGENDA DO PROFISSIONAL: " + prof.getNome() + " ===\n\n";
+        int totalAgendamentos = 0;
+        double totalArrecadado = 0.0;
+
+        for (Agendamento ag : ListaAgendamento) {
+            if (ag.getProfissional().getCod() == codProf) {
+                relatorio = relatorio + "Código: " + ag.getCodigo() + "\n"
+                        + "Data: " + ag.getData() + "\n"
+                        + "Horário: " + ag.getHoraInicio() + "\n"
+                        + "Duração: " + ag.getDuracao()+ "h\n"
+                        + "Valor: R$ " + ag.getValor() + "\n"
+                        + "Descrição: " + ag.getObjetivo()+ "\n"
+                        + "Aluno: " + ag.getAluno().getNome() + "\n"
+                        + "-------------------------------------------\n";
+
+                totalAgendamentos = totalAgendamentos + 1;
+                totalArrecadado = totalArrecadado + ag.getValor();
+            }
+        }
+
+        relatorio = relatorio + "\n===========================================\n"
+                + " RESUMO DE ARRECADAÇÃO DO PROFISSIONAL\n"
+                + "===========================================\n"
+                + "Quantidade Total de Atendimentos: " + totalAgendamentos + "\n"
+                + "Valor Total Arrecadado: R$ " + String.format("%.2f", totalArrecadado) + "\n"
+                + "===========================================\n";
+
         return relatorio;
     }
 }
