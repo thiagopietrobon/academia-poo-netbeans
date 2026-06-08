@@ -305,6 +305,16 @@ public class Controle {
         }
         return maior + 1;
     }
+    
+    public int gerarCodAg(){
+        int maior = 0;
+        for(Agendamento ag : ListaAgendamento){
+            if(ag.getCodigo() > maior){
+                maior = ag.getCodigo();
+            }
+        }
+        return maior + 1;
+    }
 
     //Relatorios para os agendamentos -------------------
     public String retornarAgendamentosPorAluno(String cpf) {
