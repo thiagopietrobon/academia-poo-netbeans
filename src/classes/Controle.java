@@ -17,7 +17,7 @@ public class Controle {
     private ArrayList<Profissional> listaProfissionais = new ArrayList();
     private ArrayList<Categoria> listaCategorias = new ArrayList<>();
     private ArrayList<HistoricoAvaliacao> listaHistoricos = new ArrayList<>();
-    private ArrayList<Agendamento>ListaAgendamento = new ArrayList<>();
+    private ArrayList<Agendamento> ListaAgendamento = new ArrayList<>();
 
     public Controle() {
         this.listaAlunos = new ArrayList();
@@ -75,8 +75,15 @@ public class Controle {
                 coord1
         );
 
-        // 7. Guarda o histórico preenchido na lista global do Controle
         this.listaHistoricos.add(histThiago);
+
+        Agendamento agen1 = new Agendamento(1, java.time.LocalDate.of(2026, 6, 15), java.time.LocalTime.of(8, 0), 1, 95.14, "Avaliação de Entrada",aluno1 , inst1);
+
+        Agendamento agen2 = new Agendamento(2, java.time.LocalDate.of(2026, 6, 12), java.time.LocalTime.of(8, 0), 1.5, 102.41, "Rotina Semestral", aluno2, coord1);
+
+        this.ListaAgendamento.add(agen1);
+        this.ListaAgendamento.add(agen2);
+        // Fim da inserção!
         // Fim da inserção!
 
     }
@@ -104,7 +111,6 @@ public class Controle {
     public ArrayList<Agendamento> getListaAgendamento() {
         return ListaAgendamento;
     }
-    
 
     //Buscas ---------------------------------------
     public Profissional buscarProfissional(int cod) {
@@ -160,10 +166,10 @@ public class Controle {
         }
         return null;
     }
-    
-    public Agendamento buscarAgendamento(int cod){
-        for(Agendamento a: ListaAgendamento){
-            if(a.getCodigo() == cod){
+
+    public Agendamento buscarAgendamento(int cod) {
+        for (Agendamento a : ListaAgendamento) {
+            if (a.getCodigo() == cod) {
                 return a;
             }
         }
@@ -210,26 +216,26 @@ public class Controle {
         }
         listaHistoricos.add(h);
     }
-    
-    public void addAgendamento(Agendamento a){
+
+    public void addAgendamento(Agendamento a) {
         Agendamento aux = buscarAgendamento(a.getCodigo());
-        if(aux != null){
+        if (aux != null) {
             throw new IllegalArgumentException("Código já cadastrado");
         }
-        for(Agendamento ag : ListaAgendamento){
-            if(ag.getData().equals(a.getData()) && ag.getHoraInicio().equals(a.getHoraInicio())){
-                if(ag.getAluno().getCpf()
-                    .equals(a.getAluno().getCpf())){
+        for (Agendamento ag : ListaAgendamento) {
+            if (ag.getData().equals(a.getData()) && ag.getHoraInicio().equals(a.getHoraInicio())) {
+                if (ag.getAluno().getCpf()
+                        .equals(a.getAluno().getCpf())) {
 
-                throw new IllegalArgumentException("Aluno já possui agendamento neste horário");
+                    throw new IllegalArgumentException("Aluno já possui agendamento neste horário");
                 }
             }
 
-            if(ag.getProfissional().getCod()== a.getProfissional().getCod()){
+            if (ag.getProfissional().getCod() == a.getProfissional().getCod()) {
 
                 throw new IllegalArgumentException("Instrutor já possui agendamento neste horário");
             }
-            
+
         }
         ListaAgendamento.add(a);
     }
@@ -280,10 +286,10 @@ public class Controle {
         }
         listaHistoricos.remove(aux);
     }
-    
-    public void removerAgendamento(int cod){
+
+    public void removerAgendamento(int cod) {
         Agendamento aux = buscarAgendamento(cod);
-        if(aux == null){
+        if (aux == null) {
             throw new IllegalArgumentException("Agendamento não encontrado");
         }
         ListaAgendamento.remove(aux);
@@ -300,8 +306,58 @@ public class Controle {
         return maior + 1;
     }
 
-    
     //Relatorios para os agendamentos -------------------
-    
-    
+    public String retornarAgendamentosPorAluno(String cpf) {
+        Aluno aluno = buscarAluno(cpf);
+        if (aluno == null) {
+            throw new IllegalArgumentException("Aluno com o CPF informado não foi encontrado!");
+        }
+
+        String relatorio = "=== AGENDAMENTOS DO ALUNO: " + aluno.getNome() + " ===\n\n";
+        int cont = 0;
+
+        for (Agendamento ag : ListaAgendamento) {
+            if (ag.getAluno().getCpf().equals(cpf)) {
+                relatorio += "Código: " + ag.getCodigo() + "\n"
+                        + "Data: " + ag.getData() + "\n"
+                        + "Horário: " + ag.getHoraInicio() + "\n"
+                        + "Atividade: " + ag.getObjetivo()+ "\n"
+                        + "Profissional: " + ag.getProfissional().getNome() + "\n"
+                        + "-------------------------------------------\n";
+                cont++;
+            }
+        }
+
+        if (cont == 0) {
+            relatorio = relatorio + "Nenhum agendamento encontrado para este aluno.";
+        }
+        return relatorio;
+    }
+
+    public String retornarAgendamentosPorProfissional(int codProf) {
+        Profissional prof = buscarProfissional(codProf);
+        if (prof == null) {
+            throw new IllegalArgumentException("Profissional com o código informado não foi encontrado!");
+        }
+
+        String relatorio = "=== AGENDA DO PROFISSIONAL: " + prof.getNome() + " ===\n\n";
+        int cont = 0;
+
+        for (Agendamento ag : ListaAgendamento) {
+            if (ag.getProfissional().getCod() == codProf) {
+                relatorio = relatorio + "Código: " + ag.getCodigo() + "\n"
+                        + "Data: " + ag.getData() + "\n"
+                        + "Horário: " + ag.getHoraInicio() + "\n"
+                        + "Descrição: " + ag.getObjetivo()+ "\n"
+                        + "Aluno: " + ag.getAluno().getNome() + "\n"
+                        + "-------------------------------------------\n";
+                cont++;
+            }
+        }
+
+        if (cont == 0) {
+            relatorio = relatorio + "Nenhum agendamento marcado para este profissional.";
+        }
+        return relatorio;
+    }
 }
