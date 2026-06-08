@@ -64,16 +64,22 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("CPF DO ALUNO:");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("COD DO PROFISSIONAL:");
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("DATA DO AGENDAMENTO:");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("HORARIO DE INICIO:");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("DURAÇÃO  EM HORAS:");
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("VALOR: R$");
 
         btnSalvar.setBackground(new java.awt.Color(39, 200, 108));
@@ -84,12 +90,14 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("OBJETIVO:");
 
         taEntrada.setColumns(20);
         taEntrada.setRows(5);
         jScrollPane1.setViewportView(taEntrada);
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("COD AGENDAMENTO:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
