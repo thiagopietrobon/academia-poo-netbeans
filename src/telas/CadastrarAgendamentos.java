@@ -70,9 +70,14 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
 
         jLabel3.setText("DATA DO AGENDAMENTO:");
 
+        tfdData.setText("AAAA-MM-DD");
+
         jLabel4.setText("HORARIO DE INICIO:");
 
         jLabel5.setText("DURAÇÃO  EM HORAS:");
+
+        tfdHorario.setText("00:00");
+        tfdHorario.addActionListener(this::tfdHorarioActionPerformed);
 
         jLabel6.setText("VALOR: R$");
 
@@ -219,7 +224,7 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
             double valor = Double.parseDouble(tfdValor.getText());
             String objetivo = taEntrada.getText().trim();
             
-            Agendamento agendamento = new Agendamento(cod, data, horario, duracao, valor, objetivo, aluno, (Instrutor)profisional);
+            Agendamento agendamento = new Agendamento(cod, data, horario, duracao, valor, objetivo, aluno, profisional);
             controle.addAgendamento(agendamento);
             
             JOptionPane.showMessageDialog(this,"Agendamento cadastrado com sucesso!");
@@ -231,6 +236,10 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void tfdHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdHorarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdHorarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

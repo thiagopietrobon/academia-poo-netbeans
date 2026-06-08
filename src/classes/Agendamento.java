@@ -20,12 +20,12 @@ public class Agendamento {
     private String objetivo;
     
     private Aluno aluno;
-    private Instrutor intrutor;
+    private Profissional profissional;
 
     public Agendamento() {
     }
 
-    public Agendamento(int codigo, LocalDate data, LocalTime horaInicio, double duracao, double valor, String objetivo, Aluno aluno, Instrutor intrutor) {
+    public Agendamento(int codigo, LocalDate data, LocalTime horaInicio, double duracao, double valor, String objetivo, Aluno aluno, Profissional profissional) {
         
         this.setCodigo(codigo);
         this.setData(data);
@@ -34,7 +34,7 @@ public class Agendamento {
         this.setValor(valor);
         this.setObjetivo(objetivo);       
         this.aluno = aluno;
-        this.intrutor = intrutor;
+        this.profissional = profissional;
     }
 
     public int getCodigo() {
@@ -65,8 +65,8 @@ public class Agendamento {
         return aluno;
     }
 
-    public Instrutor getIntrutor() {
-        return intrutor;
+    public Profissional getProfissional() {
+        return profissional;
     }
 
     public void setCodigo(int codigo) {
@@ -115,13 +115,13 @@ public class Agendamento {
         this.aluno = aluno;
     }
 
-    public void setIntrutor(Instrutor intrutor) {
-        this.intrutor = intrutor;
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
     }
 
     @Override
     public String toString() {
-        return "Agendamento: " + "codigo=" + codigo + ", data=" + data + ", horaInicio=" + horaInicio + ", duracao=" + duracao + ", valor=" + valor + ", objetivo=" + objetivo + ", aluno=" + aluno + ", intrutor=" + intrutor;
+        return "Agendamento: " + "codigo=" + codigo + ", data=" + data + ", horaInicio=" + horaInicio + ", duracao=" + duracao + ", valor=" + valor + ", objetivo=" + objetivo + ", aluno=" + aluno + ", Profissional=" + profissional;
     }
     
     

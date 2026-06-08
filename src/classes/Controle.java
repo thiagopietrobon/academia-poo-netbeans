@@ -216,7 +216,7 @@ public class Controle {
         if(aux != null){
             throw new IllegalArgumentException("Código já cadastrado");
         }
-        ListaAgendamento.add(aux);
+        ListaAgendamento.add(a);
     }
 
     //Remoções --------------------------------------

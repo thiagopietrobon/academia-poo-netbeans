@@ -30,10 +30,17 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     
     public void listarGerenciamento(){
         taSaida.setText("");
-        ArrayList<Agendamento> listaAux = controle.getListaAgendamento();
-        taSaida.setText("");
+
+        ArrayList<Agendamento> listaAux =
+                controle.getListaAgendamento();
+
         for (Agendamento a : listaAux){
-            taSaida.append(a.toString() + "\n");
+
+            if(a == null){
+                taSaida.append("AGENDAMENTO NULO\n");
+            }else{
+                taSaida.append(a.toString() + "\n");
+            }
         }
     }
 
