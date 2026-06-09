@@ -203,18 +203,63 @@ public class EditarAgendamentos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    
+        if (tfdData.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Data não pode ficar vazia!",
+                "Aviso",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (tfdHorario.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Horário não pode ficar vazio!",
+                "Aviso",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (tfdDuracao.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Duração não pode ficar vazia!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (tfdValor.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Valor não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (taEntrada.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Objetivo não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    if (tfdCpf.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"CPF do aluno não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    if (tfdCodProf.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Código do profissional não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
     try{
+        agendamento.getAluno().setCpf(tfdCpf.getText());
+        agendamento.getProfissional().setCod(Integer.parseInt(tfdCodProf.getText()));
         agendamento.setData(LocalDate.parse(tfdData.getText()));
         agendamento.setHoraInicio(LocalTime.parse(tfdHorario.getText()));
-        agendamento.setDuracao(Double.parseDouble( tfdDuracao.getText()));
+        agendamento.setDuracao(Double.parseDouble(tfdDuracao.getText()));
         agendamento.setValor(Double.parseDouble(tfdValor.getText()));
         agendamento.setObjetivo(taEntrada.getText());
-
+        
         JOptionPane.showMessageDialog(this,"Agendamento alterado com sucesso!");
 
         dispose();
+
     }catch(Exception e){
-        JOptionPane.showMessageDialog(this,e.getMessage());
+        JOptionPane.showMessageDialog(this, e.getMessage());
     }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
