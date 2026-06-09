@@ -50,8 +50,8 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         tfdCod = new javax.swing.JTextField();
         btnBuscarProfissional = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdbAgendamentos = new javax.swing.JRadioButton();
+        rdbRalatorio = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taSaida = new javax.swing.JTextArea();
 
@@ -80,6 +80,7 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         jLabel2.setText("CPF DO ALUNO:");
 
         btnBuscarAluno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
+        btnBuscarAluno.addActionListener(this::btnBuscarAlunoActionPerformed);
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("COD PROFISSONAL:");
@@ -89,14 +90,14 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("TIPO DE LISTAGEM:");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("AGENDAMENTOS");
+        buttonGroup1.add(rdbAgendamentos);
+        rdbAgendamentos.setForeground(new java.awt.Color(0, 0, 0));
+        rdbAgendamentos.setSelected(true);
+        rdbAgendamentos.setText("AGENDAMENTOS");
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton2.setText("RELATORIO");
+        buttonGroup1.add(rdbRalatorio);
+        rdbRalatorio.setForeground(new java.awt.Color(0, 0, 0));
+        rdbRalatorio.setText("RELATORIO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,9 +119,9 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jRadioButton1)
+                                            .addComponent(rdbAgendamentos)
                                             .addGap(9, 9, 9)
-                                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(rdbRalatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel3)
@@ -156,8 +157,8 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rdbAgendamentos)
+                    .addComponent(rdbRalatorio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(btnNovoAgen)
                 .addGap(18, 18, 18)
@@ -255,11 +256,31 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "O código deve conter apenas números!", "Erro de Digitação", JOptionPane.WARNING_MESSAGE);
-            
+
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExcluiragenActionPerformed
+
+    private void btnBuscarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlunoActionPerformed
+        if (tfdCpf.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira o CPF do aluno para realizar a pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            if (rdbAgendamentos.isSelected()) {
+                String resultado = controle.retornarAgendamentosPorAluno(tfdCpf.getText().trim());
+                taSaida.setText(resultado);
+            } else {
+                String resultado = controle.relatorioAgendamentosPorAluno(tfdCpf.getText().trim());
+                taSaida.setText(resultado);
+            }
+            
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarAlunoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -274,9 +295,9 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rdbAgendamentos;
+    private javax.swing.JRadioButton rdbRalatorio;
     private javax.swing.JTextArea taSaida;
     private javax.swing.JTextField tfdCod;
     private javax.swing.JTextField tfdCpf;
