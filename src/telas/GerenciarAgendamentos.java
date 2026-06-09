@@ -6,6 +6,9 @@ package telas;
 
 import classes.Agendamento;
 import classes.Controle;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -79,44 +82,36 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         btnExcluiragen.setText("EXCLUIR AGENDAMENTO");
         btnExcluiragen.addActionListener(this::btnExcluiragenActionPerformed);
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("BUSCAR AGENDAMENTO");
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("CPF DO ALUNO:");
 
         btnBuscarAluno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
         btnBuscarAluno.addActionListener(this::btnBuscarAlunoActionPerformed);
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("COD PROFISSONAL:");
 
         btnBuscarProfissional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
         btnBuscarProfissional.addActionListener(this::btnBuscarProfissionalActionPerformed);
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("TIPO DE LISTAGEM:");
 
         buttonGroup1.add(rdbAgendamentos);
-        rdbAgendamentos.setForeground(new java.awt.Color(0, 0, 0));
         rdbAgendamentos.setSelected(true);
         rdbAgendamentos.setText("AGENDAMENTOS");
 
         buttonGroup1.add(rdbRalatorio);
-        rdbRalatorio.setForeground(new java.awt.Color(0, 0, 0));
         rdbRalatorio.setText("RELATORIO");
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("BUSCA POR PERIODO");
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("INICIO:");
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("FIM:");
 
         btnBuscarPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
         btnBuscarPeriodo.setText("BUSCAR");
+        btnBuscarPeriodo.addActionListener(this::btnBuscarPeriodoActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,9 +135,8 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfdFim))
-                            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(btnNovoAgen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarPeriodo))
+                            .addComponent(btnNovoAgen, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarPeriodo, javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(btnEditarAgend, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnExcluiragen, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,6 +338,21 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         CadastrarAgendamentos cadastrarAgendamento = new CadastrarAgendamentos(this, true, controle);
         cadastrarAgendamento.setVisible(true);
     }//GEN-LAST:event_btnNovoAgenActionPerformed
+
+    private void btnBuscarPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPeriodoActionPerformed
+        
+        LocalDate inicio = LocalDate.parse(tfdInicio.getText());
+        LocalDate fim = LocalDate.parse(tfdFim.getText());
+
+        ArrayList<Agendamento> lista = controle.buscarAgendamentosPeriodo(inicio, fim);
+
+        taSaida.setText("");
+
+        for (Agendamento a : lista) {
+            taSaida.append(a.toString() + "\n\n");
+        }
+
+    }//GEN-LAST:event_btnBuscarPeriodoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

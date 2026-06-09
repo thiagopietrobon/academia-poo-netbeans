@@ -4,6 +4,7 @@
  */
 package classes;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -176,7 +177,21 @@ public class Controle {
         }
         return null;
     }
+    
+    public ArrayList<Agendamento> buscarAgendamentosPeriodo(LocalDate inicio, LocalDate fim){
 
+    ArrayList<Agendamento> resultado = new ArrayList<>();
+
+    for(Agendamento a : ListaAgendamento){
+
+        if(!a.getData().isBefore(inicio) && !a.getData().isAfter(fim)){
+            resultado.add(a);
+        }
+    }
+
+    return resultado;
+}
+    
     //Adições -----------------------------------
     public void addProfissional(Profissional p) {
         Profissional aux = buscarProfissional(p.getCod());
