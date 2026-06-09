@@ -6,7 +6,10 @@ package telas;
 
 import classes.Agendamento;
 import classes.Instrutor;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -200,7 +203,19 @@ public class EditarAgendamentos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
+    try{
+        agendamento.setData(LocalDate.parse(tfdData.getText()));
+        agendamento.setHoraInicio(LocalTime.parse(tfdHorario.getText()));
+        agendamento.setDuracao(Double.parseDouble( tfdDuracao.getText()));
+        agendamento.setValor(Double.parseDouble(tfdValor.getText()));
+        agendamento.setObjetivo(taEntrada.getText());
+
+        JOptionPane.showMessageDialog(this,"Agendamento alterado com sucesso!");
+
+        dispose();
+    }catch(Exception e){
+        JOptionPane.showMessageDialog(this,e.getMessage());
+    }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
