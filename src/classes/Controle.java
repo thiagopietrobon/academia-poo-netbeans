@@ -4,6 +4,7 @@
  */
 package classes;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -218,25 +219,40 @@ public class Controle {
     }
 
     public void addAgendamento(Agendamento a) {
+
         Agendamento aux = buscarAgendamento(a.getCodigo());
+
         if (aux != null) {
             throw new IllegalArgumentException("Código já cadastrado");
         }
-        for (Agendamento ag : ListaAgendamento) {
-            if (ag.getData().equals(a.getData()) && ag.getHoraInicio().equals(a.getHoraInicio())) {
-                if (ag.getAluno().getCpf()
-                        .equals(a.getAluno().getCpf())) {
 
+        for (Agendamento ag : ListaAgendamento) {
+
+            if (!ag.getData().equals(a.getData())) {
+                continue;
+            }
+
+            LocalTime inicioExistente = ag.getHoraInicio();
+
+            LocalTime fimExistente =inicioExistente.plusMinutes((long) (ag.getDuracao() * 60));
+
+            LocalTime inicioNovo = a.getHoraInicio();
+
+            LocalTime fimNovo = inicioNovo.plusMinutes((long) (a.getDuracao() * 60));
+
+            boolean conflito = inicioNovo.isBefore(fimExistente)&& fimNovo.isAfter(inicioExistente);
+
+            if (conflito) {
+
+                if (ag.getAluno().getCpf().equals(a.getAluno().getCpf())) {
                     throw new IllegalArgumentException("Aluno já possui agendamento neste horário");
                 }
+                if (ag.getProfissional().getCod() == a.getProfissional().getCod()) {
+                    throw new IllegalArgumentException("Instrutor já possui agendamento neste horário");
+                }
             }
-
-            if (ag.getProfissional().getCod() == a.getProfissional().getCod()) {
-
-                throw new IllegalArgumentException("Instrutor já possui agendamento neste horário");
-            }
-
         }
+
         ListaAgendamento.add(a);
     }
 
