@@ -130,7 +130,7 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -340,7 +340,28 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNovoAgenActionPerformed
 
     private void btnBuscarPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPeriodoActionPerformed
-        
+        if (tfdInicio.getText().trim().isEmpty() || tfdFim.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "E necessário informar a data inicial e final para realizar a busca!", "aviso", JOptionPane.WARNING_MESSAGE);
+        } else if (tfdInicio.getText().trim().length() < 10 || tfdFim.getText().trim().length() < 10) {
+            JOptionPane.showMessageDialog(this, "Data invalida. Deve estar no formato ANO-MES-DIA", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+
+        try {
+            java.time.LocalDate inicio = java.time.LocalDate.parse(tfdInicio.getText().trim());
+            java.time.LocalDate fim = java.time.LocalDate.parse(tfdFim.getText().trim());
+
+            if (inicio.isAfter(fim)) {
+                JOptionPane.showMessageDialog(this, "A data de início não pode ser posterior a data de término!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String relatorioFormatado = controle.relatorioAgendamentosPorPeriodo(inicio, fim);
+
+            taSaida.setText(relatorioFormatado);
+
+        } catch (java.time.format.DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Formato de data inválido! Digite no padrão: ANO-MES-DIA", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBuscarPeriodoActionPerformed
 
 
