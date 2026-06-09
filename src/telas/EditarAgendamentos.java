@@ -203,6 +203,52 @@ public class EditarAgendamentos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    
+        if (tfdData.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Data não pode ficar vazia!","Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!tfdData.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
+            JOptionPane.showMessageDialog(this,"A data deve estar no formato AAAA-MM-DD!\nExemplo: 2026-06-09","Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!tfdHorario.getText().matches("\\d{2}:\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "O horário deve estar no formato 00:00!\nExemplo: 14:30","Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+    if (tfdHorario.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Horário não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (tfdDuracao.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Duração não pode ficar vazia!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (tfdValor.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Valor não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (taEntrada.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Objetivo não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    if (tfdCpf.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"CPF do aluno não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    if (tfdCodProf.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Código do profissional não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
     try{
         agendamento.setData(LocalDate.parse(tfdData.getText()));
         agendamento.setHoraInicio(LocalTime.parse(tfdHorario.getText()));
