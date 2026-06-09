@@ -212,7 +212,7 @@ public class CadastrarAgendamentos extends javax.swing.JDialog {
                 throw new IllegalArgumentException("Profissional não encontrado");
             }
             
-            int cod = controle.gerarCod();
+            int cod = controle.gerarCodAg();
             LocalDate data = LocalDate.parse(tfdData.getText());
             LocalTime horario = LocalTime.parse(tfdHorario.getText());
             double duracao = Double.parseDouble(tfdDuracao.getText());
