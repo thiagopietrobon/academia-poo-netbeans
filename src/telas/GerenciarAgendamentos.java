@@ -86,6 +86,7 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         jLabel3.setText("COD PROFISSONAL:");
 
         btnBuscarProfissional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
+        btnBuscarProfissional.addActionListener(this::btnBuscarProfissionalActionPerformed);
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("TIPO DE LISTAGEM:");
@@ -276,11 +277,33 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                 String resultado = controle.relatorioAgendamentosPorAluno(tfdCpf.getText().trim());
                 taSaida.setText(resultado);
             }
-            
+
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarAlunoActionPerformed
+
+    private void btnBuscarProfissionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProfissionalActionPerformed
+        if (tfdCod.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira o código do profissional para realizar a pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            if (rdbAgendamentos.isSelected()) {
+                String resultado = controle.retornarAgendamentosPorProfissional(Integer.parseInt(tfdCod.getText().trim()));
+                taSaida.setText(resultado);
+            } else {
+                String resultado = controle.relatorioAgendamentosPorProfissional(Integer.parseInt(tfdCod.getText().trim()));
+                taSaida.setText(resultado);
+            }
+
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Código do profissional só pode conter números!", "Erro de digitação", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarProfissionalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
