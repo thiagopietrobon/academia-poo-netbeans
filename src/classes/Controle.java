@@ -177,21 +177,21 @@ public class Controle {
         }
         return null;
     }
-    
-    public ArrayList<Agendamento> buscarAgendamentosPeriodo(LocalDate inicio, LocalDate fim){
 
-    ArrayList<Agendamento> resultado = new ArrayList<>();
+    public ArrayList<Agendamento> buscarAgendamentosPeriodo(LocalDate inicio, LocalDate fim) {
 
-    for(Agendamento a : ListaAgendamento){
+        ArrayList<Agendamento> resultado = new ArrayList<>();
 
-        if(!a.getData().isBefore(inicio) && !a.getData().isAfter(fim)){
-            resultado.add(a);
+        for (Agendamento a : ListaAgendamento) {
+
+            if (!a.getData().isBefore(inicio) && !a.getData().isAfter(fim)) {
+                resultado.add(a);
+            }
         }
+
+        return resultado;
     }
 
-    return resultado;
-}
-    
     //Adições -----------------------------------
     public void addProfissional(Profissional p) {
         Profissional aux = buscarProfissional(p.getCod());
@@ -249,13 +249,13 @@ public class Controle {
 
             LocalTime inicioExistente = ag.getHoraInicio();
 
-            LocalTime fimExistente =inicioExistente.plusMinutes((long) (ag.getDuracao() * 60));
+            LocalTime fimExistente = inicioExistente.plusMinutes((long) (ag.getDuracao() * 60));
 
             LocalTime inicioNovo = a.getHoraInicio();
 
             LocalTime fimNovo = inicioNovo.plusMinutes((long) (a.getDuracao() * 60));
 
-            boolean conflito = inicioNovo.isBefore(fimExistente)&& fimNovo.isAfter(inicioExistente);
+            boolean conflito = inicioNovo.isBefore(fimExistente) && fimNovo.isAfter(inicioExistente);
 
             if (conflito) {
 
@@ -336,11 +336,11 @@ public class Controle {
         }
         return maior + 1;
     }
-    
-    public int gerarCodAg(){
+
+    public int gerarCodAg() {
         int maior = 0;
-        for(Agendamento ag : ListaAgendamento){
-            if(ag.getCodigo() > maior){
+        for (Agendamento ag : ListaAgendamento) {
+            if (ag.getCodigo() > maior) {
                 maior = ag.getCodigo();
             }
         }
@@ -417,9 +417,9 @@ public class Controle {
                 relatorio = relatorio + "Código: " + ag.getCodigo() + "\n"
                         + "Data: " + ag.getData() + "\n"
                         + "Horário: " + ag.getHoraInicio() + "\n"
-                        + "Duração: " + ag.getDuracao()+ "h\n"
+                        + "Duração: " + ag.getDuracao() + "h\n"
                         + "Valor: R$ " + ag.getValor() + "\n"
-                        + "Atividade: " + ag.getObjetivo()+ "\n"
+                        + "Atividade: " + ag.getObjetivo() + "\n"
                         + "Profissional: " + ag.getProfissional().getNome() + "\n"
                         + "-------------------------------------------\n";
 
@@ -453,9 +453,9 @@ public class Controle {
                 relatorio = relatorio + "Código: " + ag.getCodigo() + "\n"
                         + "Data: " + ag.getData() + "\n"
                         + "Horário: " + ag.getHoraInicio() + "\n"
-                        + "Duração: " + ag.getDuracao()+ "h\n"
+                        + "Duração: " + ag.getDuracao() + "h\n"
                         + "Valor: R$ " + ag.getValor() + "\n"
-                        + "Descrição: " + ag.getObjetivo()+ "\n"
+                        + "Descrição: " + ag.getObjetivo() + "\n"
                         + "Aluno: " + ag.getAluno().getNome() + "\n"
                         + "-------------------------------------------\n";
 
@@ -469,6 +469,45 @@ public class Controle {
                 + "===========================================\n"
                 + "Quantidade Total de Atendimentos: " + totalAgendamentos + "\n"
                 + "Valor Total Arrecadado: R$ " + String.format("%.2f", totalArrecadado) + "\n"
+                + "===========================================\n";
+
+        return relatorio;
+    }
+
+    public String relatorioAgendamentosPorPeriodo(LocalDate inicio, LocalDate fim) {
+        ArrayList<Agendamento> agendamentosFiltrados = buscarAgendamentosPeriodo(inicio, fim);
+
+        String relatorio = "=== RELATÓRIO DE AGENDAMENTOS POR PERÍODO ===\n"
+                + "Intervalo: " + inicio + " até " + fim + "\n"
+                + "===========================================\n\n";
+
+        int totalAgendamentos = 0;
+        double totalArrecadado = 0.0;
+
+        for (Agendamento ag : agendamentosFiltrados) {
+            relatorio = relatorio + "Código: " + ag.getCodigo() + "\n"
+                    + "Data: " + ag.getData() + "\n"
+                    + "Horário: " + ag.getHoraInicio() + "\n"
+                    + "Duração: " + ag.getDuracao() + "h\n"
+                    + "Valor: R$ " + ag.getValor() + "\n"
+                    + "Descrição/Objetivo: " + ag.getObjetivo() + "\n"
+                    + "Aluno: " + ag.getAluno().getNome() + "\n"
+                    + "Profissional: " + ag.getProfissional().getNome() + "\n"
+                    + "-------------------------------------------\n";
+
+            totalAgendamentos = totalAgendamentos + 1;
+            totalArrecadado = totalArrecadado + ag.getValor();
+        }
+
+        if (totalAgendamentos == 0) {
+            relatorio = relatorio + "Nenhum agendamento encontrado para o período informado.\n";
+        }
+
+        relatorio = relatorio + "\n===========================================\n"
+                + " RESUMO GERAL DO PERÍODO\n"
+                + "===========================================\n"
+                + "Quantidade Total de Agendamentos: " + totalAgendamentos + "\n"
+                + "Movimentação Financeira Total: R$ " + String.format("%.2f", totalArrecadado) + "\n"
                 + "===========================================\n";
 
         return relatorio;
