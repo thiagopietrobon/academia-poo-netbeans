@@ -8,6 +8,7 @@ import classes.Agendamento;
 import classes.Controle;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -82,31 +83,40 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         btnExcluiragen.setText("EXCLUIR AGENDAMENTO");
         btnExcluiragen.addActionListener(this::btnExcluiragenActionPerformed);
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("BUSCAR AGENDAMENTO");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("CPF DO ALUNO:");
 
         btnBuscarAluno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
         btnBuscarAluno.addActionListener(this::btnBuscarAlunoActionPerformed);
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("COD PROFISSONAL:");
 
         btnBuscarProfissional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
         btnBuscarProfissional.addActionListener(this::btnBuscarProfissionalActionPerformed);
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("TIPO DE LISTAGEM:");
 
         buttonGroup1.add(rdbAgendamentos);
+        rdbAgendamentos.setForeground(new java.awt.Color(0, 0, 0));
         rdbAgendamentos.setSelected(true);
         rdbAgendamentos.setText("AGENDAMENTOS");
 
         buttonGroup1.add(rdbRalatorio);
+        rdbRalatorio.setForeground(new java.awt.Color(0, 0, 0));
         rdbRalatorio.setText("RELATORIO");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("BUSCA POR PERIODO");
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("INICIO:");
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("FIM:");
 
         btnBuscarPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
@@ -120,11 +130,6 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -160,7 +165,12 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(btnBuscarAluno)
                                         .addComponent(btnBuscarProfissional)))))
-                        .addGap(31, 31, 31))))
+                        .addGap(31, 31, 31))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,8 +357,8 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         }
 
         try {
-            java.time.LocalDate inicio = java.time.LocalDate.parse(tfdInicio.getText().trim());
-            java.time.LocalDate fim = java.time.LocalDate.parse(tfdFim.getText().trim());
+            LocalDate inicio = LocalDate.parse(tfdInicio.getText().trim());
+            LocalDate fim = LocalDate.parse(tfdFim.getText().trim());
 
             if (inicio.isAfter(fim)) {
                 JOptionPane.showMessageDialog(this, "A data de início não pode ser posterior a data de término!", "Aviso", JOptionPane.WARNING_MESSAGE);
@@ -359,7 +369,7 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
 
             taSaida.setText(relatorioFormatado);
 
-        } catch (java.time.format.DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(this, "Formato de data inválido! Digite no padrão: ANO-MES-DIA", "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarPeriodoActionPerformed
