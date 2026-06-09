@@ -205,18 +205,22 @@ public class EditarAgendamentos extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
     
         if (tfdData.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "Data não pode ficar vazia!",
-                "Aviso",
-                JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+            JOptionPane.showMessageDialog(this,"Data não pode ficar vazia!","Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!tfdData.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
+            JOptionPane.showMessageDialog(this,"A data deve estar no formato AAAA-MM-DD!\nExemplo: 2026-06-09","Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!tfdHorario.getText().matches("\\d{2}:\\d{2}")) {
+            JOptionPane.showMessageDialog(this, "O horário deve estar no formato 00:00!\nExemplo: 14:30","Aviso",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
     if (tfdHorario.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "Horário não pode ficar vazio!",
-                "Aviso",
-                JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,"Horário não pode ficar vazio!","Aviso",JOptionPane.WARNING_MESSAGE);
         return;
     }
 
