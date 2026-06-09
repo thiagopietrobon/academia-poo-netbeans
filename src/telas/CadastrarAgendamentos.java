@@ -4,7 +4,11 @@
  */
 package telas;
 
-import classes.*;
+
+import classes.Agendamento;
+import classes.Aluno;
+import classes.Controle;
+import classes.Profissional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.JDialog;

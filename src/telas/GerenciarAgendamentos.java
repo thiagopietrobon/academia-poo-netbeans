@@ -341,17 +341,6 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
 
     private void btnBuscarPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPeriodoActionPerformed
         
-        LocalDate inicio = LocalDate.parse(tfdInicio.getText());
-        LocalDate fim = LocalDate.parse(tfdFim.getText());
-
-        ArrayList<Agendamento> lista = controle.buscarAgendamentosPeriodo(inicio, fim);
-
-        taSaida.setText("");
-
-        for (Agendamento a : lista) {
-            taSaida.append(a.toString() + "\n\n");
-        }
-
     }//GEN-LAST:event_btnBuscarPeriodoActionPerformed
 
 
