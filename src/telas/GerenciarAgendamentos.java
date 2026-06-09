@@ -52,6 +52,12 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         rdbAgendamentos = new javax.swing.JRadioButton();
         rdbRalatorio = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tfdInicio = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        tfdFim = new javax.swing.JTextField();
+        btnBuscarPeriodo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taSaida = new javax.swing.JTextArea();
 
@@ -100,6 +106,18 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         rdbRalatorio.setForeground(new java.awt.Color(0, 0, 0));
         rdbRalatorio.setText("RELATORIO");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("BUSCA POR PERIODO");
+
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("INICIO:");
+
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("FIM:");
+
+        btnBuscarPeriodo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/magnifying-glass.png"))); // NOI18N
+        btnBuscarPeriodo.setText("BUSCAR");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -108,14 +126,26 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(btnNovoAgen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditarAgend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnExcluiragen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfdFim))
+                            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                .addComponent(btnNovoAgen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscarPeriodo))
+                            .addComponent(btnEditarAgend, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExcluiragen, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -160,7 +190,17 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbAgendamentos)
                     .addComponent(rdbRalatorio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(tfdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(tfdFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscarPeriodo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(btnNovoAgen)
                 .addGap(18, 18, 18)
                 .addComponent(btnEditarAgend)
@@ -197,35 +237,47 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNovoAgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAgenActionPerformed
-        CadastrarAgendamentos cadastrarAgendamento = new CadastrarAgendamentos(this, true, controle);
-        cadastrarAgendamento.setVisible(true);
-    }//GEN-LAST:event_btnNovoAgenActionPerformed
-
-    private void btnEditarAgendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAgendActionPerformed
-        String codigo = JOptionPane.showInputDialog("Código do agendamento:");
-
-        if (codigo == null) {
+    private void btnBuscarProfissionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProfissionalActionPerformed
+        if (tfdCod.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira o código do profissional para realizar a pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
-            int cod = Integer.parseInt(codigo);
-
-            Agendamento aux = controle.buscarAgendamento(cod);
-
-            if (aux == null) {
-                JOptionPane.showMessageDialog(this, "Agendamento não encontrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
-                return;
+            if (rdbAgendamentos.isSelected()) {
+                String resultado = controle.retornarAgendamentosPorProfissional(Integer.parseInt(tfdCod.getText().trim()));
+                taSaida.setText(resultado);
+            } else {
+                String resultado = controle.relatorioAgendamentosPorProfissional(Integer.parseInt(tfdCod.getText().trim()));
+                taSaida.setText(resultado);
             }
 
-            EditarAgendamentos editarAgendamento = new EditarAgendamentos(this, true, aux);
-            editarAgendamento.setVisible(true);
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Código só pode conter números!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Código do profissional só pode conter números!", "Erro de digitação", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_btnEditarAgendActionPerformed
+    }//GEN-LAST:event_btnBuscarProfissionalActionPerformed
+
+    private void btnBuscarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlunoActionPerformed
+        if (tfdCpf.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Insira o CPF do aluno para realizar a pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            if (rdbAgendamentos.isSelected()) {
+                String resultado = controle.retornarAgendamentosPorAluno(tfdCpf.getText().trim());
+                taSaida.setText(resultado);
+            } else {
+                String resultado = controle.relatorioAgendamentosPorAluno(tfdCpf.getText().trim());
+                taSaida.setText(resultado);
+            }
+
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarAlunoActionPerformed
 
     private void btnExcluiragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluiragenActionPerformed
         String codigo = JOptionPane.showInputDialog("Código do agendamento:");
@@ -263,51 +315,40 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnExcluiragenActionPerformed
 
-    private void btnBuscarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAlunoActionPerformed
-        if (tfdCpf.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Insira o CPF do aluno para realizar a pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
+    private void btnEditarAgendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAgendActionPerformed
+        String codigo = JOptionPane.showInputDialog("Código do agendamento:");
+
+        if (codigo == null) {
             return;
         }
 
         try {
-            if (rdbAgendamentos.isSelected()) {
-                String resultado = controle.retornarAgendamentosPorAluno(tfdCpf.getText().trim());
-                taSaida.setText(resultado);
-            } else {
-                String resultado = controle.relatorioAgendamentosPorAluno(tfdCpf.getText().trim());
-                taSaida.setText(resultado);
+            int cod = Integer.parseInt(codigo);
+
+            Agendamento aux = controle.buscarAgendamento(cod);
+
+            if (aux == null) {
+                JOptionPane.showMessageDialog(this, "Agendamento não encontrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
             }
 
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnBuscarAlunoActionPerformed
+            EditarAgendamentos editarAgendamento = new EditarAgendamentos(this, true, aux);
+            editarAgendamento.setVisible(true);
 
-    private void btnBuscarProfissionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProfissionalActionPerformed
-        if (tfdCod.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Insira o código do profissional para realizar a pesquisa!", "Aviso", JOptionPane.WARNING_MESSAGE);
-            return;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Código só pode conter números!", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
+    }//GEN-LAST:event_btnEditarAgendActionPerformed
 
-        try {
-            if (rdbAgendamentos.isSelected()) {
-                String resultado = controle.retornarAgendamentosPorProfissional(Integer.parseInt(tfdCod.getText().trim()));
-                taSaida.setText(resultado);
-            } else {
-                String resultado = controle.relatorioAgendamentosPorProfissional(Integer.parseInt(tfdCod.getText().trim()));
-                taSaida.setText(resultado);
-            }
-
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro de busca", JOptionPane.ERROR_MESSAGE);
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(this, "Código do profissional só pode conter números!", "Erro de digitação", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_btnBuscarProfissionalActionPerformed
+    private void btnNovoAgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoAgenActionPerformed
+        CadastrarAgendamentos cadastrarAgendamento = new CadastrarAgendamentos(this, true, controle);
+        cadastrarAgendamento.setVisible(true);
+    }//GEN-LAST:event_btnNovoAgenActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarAluno;
+    private javax.swing.JButton btnBuscarPeriodo;
     private javax.swing.JButton btnBuscarProfissional;
     private javax.swing.JButton btnEditarAgend;
     private javax.swing.JButton btnExcluiragen;
@@ -317,6 +358,9 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rdbAgendamentos;
@@ -324,5 +368,7 @@ public class GerenciarAgendamentos extends javax.swing.JDialog {
     private javax.swing.JTextArea taSaida;
     private javax.swing.JTextField tfdCod;
     private javax.swing.JTextField tfdCpf;
+    private javax.swing.JTextField tfdFim;
+    private javax.swing.JTextField tfdInicio;
     // End of variables declaration//GEN-END:variables
 }
